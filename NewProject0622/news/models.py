@@ -37,7 +37,7 @@ class Post(models.Model):
 
     date_create = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField(Category, through='PostCategory')
-    title = models.CharField(max_length=128)
+    post_title = models.CharField(max_length=128)
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
@@ -49,9 +49,12 @@ class Post(models.Model):
         self.rating -= 1
         self.save()
 
+    def __str__(self):
+        return self.post_title
+
     def preview(self):
         return self.text[0:123] + '...'
-
+    
 
 class PostCategory(models.Model):
     post_through = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -72,3 +75,7 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+    def __str__(self):
+        return self.text()
+

@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет PostList -->
+{% block title %}
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<h1>Блог о Битрикс24</h1>
+<br>
+<h3>{{ time_now|date:'d.m.Y h:m:s' }}</h3>
+    {% if postlist %}
+        {% for post in postlist %}
+            <h4><b>{{ post.post_title }}</b></h4><br>
+            {{ post.text }}<br>
+            {{ post.date_create}}<br>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h2>Статей нет!</h2>
+   {% endif %}
+{% endblock content %}
