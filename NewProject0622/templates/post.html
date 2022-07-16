@@ -1,13 +1,18 @@
 {% extends 'flatpages/default.html' %}
 
+{% load custom_filters %}
+{% load custom_tags %}
+
 <!-- Название у нас будет PostList -->
 {% block title %}
 {% endblock title %}
  
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
-<h2>{{ post.post_title }}</h2>
-<hr>
+<h2>{{ post.post_title|censor }}</h2>
+{{ post.text|censor }}<br>
 <br>
-{{ post.text }}
+Дата публикации: {{ post.date_create|date:'d.m.Y' }}<br>
+<hr>
+<a href="/blog/">Все статьи</a>
 {% endblock content %}
