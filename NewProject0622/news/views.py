@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
 # Импортируем класс, который говорит нам о том,
@@ -5,6 +6,7 @@ from datetime import datetime
 from django.views.generic import ListView, DetailView
 from .models import Author, Category, Post, PostCategory, Comment
 from .filters import PostFilter
+from .forms import PostForm
 
 
 class PostList(ListView):
@@ -51,3 +53,15 @@ class PostDetail(DetailView):
     template_name = 'post.html'
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
+
+
+def post_create(request):
+    form = PostForm()
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/blog/')
+    
+    return render(request, 'post_form.html', {'form': form})
