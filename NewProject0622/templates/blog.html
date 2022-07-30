@@ -11,21 +11,28 @@
 {% block content %}
 <h1>Блог о Битрикс24</h1>
 Дата и время: {% current_time '%d.%m.%Y %H:%M' %}<br>
-
-{# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
 <form action="" method="get">
     {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
     {{ filterset.form.as_p }}
     {# Добавим кнопку отправки данных формы #}
     <input type="submit" value="Найти" />
 </form>
-<br>
+<!-- <br>
+<hr>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+<hr> -->
+
 <br>
     {% if postlist %}
         {% for post in postlist %}
             <h4><b>{{ post.post_title|censor }}</b></h4>
             {{ post.date_create|date:'d.m.Y h:m:s' }}<br>
             {{ post.text|truncatechars:20|censor }}<br>
+            {{post.category_type}}
             <hr>
         {% endfor %}
     {% else %}
