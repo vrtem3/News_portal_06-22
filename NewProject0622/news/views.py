@@ -1,5 +1,4 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render
 from datetime import datetime
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
@@ -41,12 +40,26 @@ class PostDetail(DetailView):
 
 
 # Представление для создания нового объекта
-class PostCreate(CreateView):
-    # Указываем нашу разработанную форму
+class PostCreateNews(CreateView):
     form_class = PostForm
     model = Post
-    # и новый шаблон, в котором используется форма.
     template_name = 'post_form.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.category_type = "NW"
+        return super().form_valid(form)
+
+
+class PostCreateArticles(CreateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_form.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.category_type = "AR"
+        return super().form_valid(form)
 
 
 # Представление для изменения объекта

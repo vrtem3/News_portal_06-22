@@ -11,12 +11,17 @@
 {% block content %}
 <h1>Блог о Битрикс24</h1>
 Дата и время: {% current_time '%d.%m.%Y %H:%M' %}<br>
+<br>
+<hr>
+<h4>Поиск</h4>
 <form action="" method="get">
     {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
     {{ filterset.form.as_p }}
     {# Добавим кнопку отправки данных формы #}
     <input type="submit" value="Найти" />
 </form>
+<hr>
+<br>
 <!-- <br>
 <hr>
 <form method="post">
@@ -25,8 +30,6 @@
     <input type="submit" value="Submit">
 </form>
 <hr> -->
-
-<br>
     {% if postlist %}
         {% for post in postlist %}
             <h4><b>{{ post.post_title|censor }}</b></h4>

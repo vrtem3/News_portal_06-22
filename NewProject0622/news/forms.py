@@ -8,8 +8,8 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = '__all__'
-       
+        fields = ['author_connect', 'post_title', 'text']
+
     def clean(self):
         cleaned_data = super().clean()
         post_title = cleaned_data.get("post_title")
@@ -21,4 +21,3 @@ class PostForm(forms.ModelForm):
             )
 
         return cleaned_data
-
